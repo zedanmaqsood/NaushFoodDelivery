@@ -14,10 +14,12 @@ import { useFonts as UseLato, Lato_400Regular } from "@expo-google-fonts/lato";
 
 import { theme } from "./src/infrastructure/theme/index";
 import { RestaurantsScreen } from "./src/features/restaurants/screens/resturants.screen";
+import { RestaurantContextProvider } from "./src/services/restaurants/restaurants.context";
+import { LocationContextProvider } from "./src/services/location/location.context";
 
 const TAB_ICON = {
   Restaurant: "restaurant",
-  Settings: "ios-settings",
+  Settings: "settings",
   Maps: "map",
 };
 
@@ -79,14 +81,21 @@ export default function App() {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <NavigationContainer>
-          <Tab.Navigator screenOptions={screenOptions}>
-            <Tab.Screen name="Restaurant" component={RestaurantsScreen} />
-            <Tab.Screen name="Settings" component={SettingsScreen} />
-            <Tab.Screen name="Maps" component={MapsScreen} />
-          </Tab.Navigator>
-        </NavigationContainer>
-        {/* <RestaurantsScreen /> */}
+        <LocationContextProvider>
+          <RestaurantContextProvider>
+            <NavigationContainer>
+              <Tab.Navigator screenOptions={screenOptions}>
+                <Tab.Screen
+                  name="Restaurant"
+                  options={{ headerShown: false }}
+                  component={RestaurantsScreen}
+                />
+                <Tab.Screen name="Settings" component={SettingsScreen} />
+                <Tab.Screen name="Maps" component={MapsScreen} />
+              </Tab.Navigator>
+            </NavigationContainer>
+          </RestaurantContextProvider>
+        </LocationContextProvider>
       </ThemeProvider>
       <ExpoStatusBar style="auto" />
     </>
