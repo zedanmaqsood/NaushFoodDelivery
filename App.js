@@ -1,10 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { StatusBar as ExpoStatusBar } from "expo-status-bar";
-import styled from "styled-components";
 import { ThemeProvider } from "styled-components/native";
-import { NavigationContainer } from "@react-navigation/native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Ionicons } from "@expo/vector-icons";
+
+import { initializeApp } from "firebase/app";
 
 import {
   useFonts as UseOswald,
@@ -13,57 +11,25 @@ import {
 import { useFonts as UseLato, Lato_400Regular } from "@expo-google-fonts/lato";
 
 import { theme } from "./src/infrastructure/theme/index";
-import { RestaurantsScreen } from "./src/features/restaurants/screens/resturants.screen";
+
 import { RestaurantContextProvider } from "./src/services/restaurants/restaurants.context";
 import { LocationContextProvider } from "./src/services/location/location.context";
+import { FavouritesContextProvider } from "./src/services/favourites/favourites.context";
+import { AuthContextProvider } from "./src/services/authentication/authentication.context";
 
-const TAB_ICON = {
-  Restaurant: "restaurant",
-  Settings: "settings",
-  Maps: "map",
+import { Navigation } from "./src/infrastructure/navigation";
+
+// Initialize Firebase
+const firebaseConfig = {
+  apiKey: "AIzaSyA4yexJwDsBLSIr3tD849tdYZ1EdFXV6vE",
+  authDomain: "naushfood-f2d34.firebaseapp.com",
+  projectId: "naushfood-f2d34",
+  storageBucket: "naushfood-f2d34.appspot.com",
+  messagingSenderId: "19326605675",
+  appId: "1:19326605675:web:dfd2cd14bd24aca978542e",
 };
 
-const CenteredView = styled.View`
-  flex: 1;
-  justify-content: center;
-`;
-
-const Title = styled.Text`
-  text-align: center;
-`;
-
-const SettingsScreen = () => {
-  return (
-    <CenteredView>
-      <Title>Settings Screen</Title>
-    </CenteredView>
-  );
-};
-
-const MapsScreen = () => {
-  return (
-    <CenteredView>
-      <Title>Maps Screen</Title>
-    </CenteredView>
-  );
-};
-
-const tabBarIcon =
-  (iconName) =>
-  ({ size, color }) =>
-    <Ionicons name={iconName} size={size} color={color} />;
-
-const screenOptions = ({ route }) => {
-  const iconName = TAB_ICON[route.name];
-
-  return {
-    tabBarIcon: tabBarIcon(iconName),
-    tabBarActiveTintColor: "tomato",
-    tabBarInactiveTintColor: "gray",
-  };
-};
-
-const Tab = createBottomTabNavigator();
+initializeApp(firebaseConfig);
 
 export default function App() {
   const [oswaldLoaded] = UseOswald({
@@ -81,21 +47,15 @@ export default function App() {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <LocationContextProvider>
-          <RestaurantContextProvider>
-            <NavigationContainer>
-              <Tab.Navigator screenOptions={screenOptions}>
-                <Tab.Screen
-                  name="Restaurant"
-                  options={{ headerShown: false }}
-                  component={RestaurantsScreen}
-                />
-                <Tab.Screen name="Settings" component={SettingsScreen} />
-                <Tab.Screen name="Maps" component={MapsScreen} />
-              </Tab.Navigator>
-            </NavigationContainer>
-          </RestaurantContextProvider>
-        </LocationContextProvider>
+        <AuthContextProvider>
+          <FavouritesContextProvider>
+            <LocationContextProvider>
+              <RestaurantContextProvider>
+                <Navigation />
+              </RestaurantContextProvider>
+            </LocationContextProvider>
+          </FavouritesContextProvider>
+        </AuthContextProvider>
       </ThemeProvider>
       <ExpoStatusBar style="auto" />
     </>
