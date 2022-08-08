@@ -1,22 +1,34 @@
 import React from "react";
-import styled from "styled-components";
 
-import { AccountFilter, ImageContainer } from "../components/account.styles";
+import {
+  AccountFilter,
+  ImageContainer,
+  AccountContainer,
+  AuthButton,
+} from "../components/account.styles";
+import { Spacer } from "../../../components/spacer/spacer.component";
 
-const Text = styled.Text`
-  color: white;
-  font-size: 42px;
-  line-height: 84px;
-  font-weight: bold;
-  text-align: center;
-  background-color: #000000c0;
-`;
-
-export const AccountScreen = () => {
+export const AccountScreen = ({ navigation }) => {
   return (
     <ImageContainer>
       <AccountFilter />
-      <Text>Suiii</Text>
+      <AccountContainer>
+        <AuthButton
+          icon="lock-open-outline"
+          mode="contained"
+          onPress={() => navigation.navigate("Login")}
+        >
+          Login
+        </AuthButton>
+        <Spacer position="top" size="large" />
+        <AuthButton
+          icon="account-plus-outline"
+          mode="contained"
+          onPress={() => navigation.navigate("Register")}
+        >
+          Register
+        </AuthButton>
+      </AccountContainer>
     </ImageContainer>
   );
 };
