@@ -1,5 +1,5 @@
 import React from "react";
-import LottieView from "lottie-react-native";
+// import LottieView from "lottie-react-native";
 
 import {
   AccountFilter,
@@ -14,7 +14,7 @@ export const AccountScreen = ({ navigation }) => {
   return (
     <ImageContainer>
       <AccountFilter />
-      <AnimationWrapper>
+      {/* <AnimationWrapper>
         <LottieView
           key="animation"
           autoPlay
@@ -22,7 +22,7 @@ export const AccountScreen = ({ navigation }) => {
           resizeMode="cover"
           source={require("../../../../assets/watermelon.json")}
         />
-      </AnimationWrapper>
+      </AnimationWrapper> */}
       <AccountContainer>
         <AuthButton
           icon="lock-open-outline"

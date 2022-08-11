@@ -19,6 +19,7 @@ const bodyAlt = (theme) => `
 
 const hint = (theme) => `
     font-size: ${theme.fontSizes.body};
+    color: ${theme.colors.text.secondary};
 `;
 
 const error = (theme) => `
