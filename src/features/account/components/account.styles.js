@@ -1,7 +1,8 @@
 import styled from "styled-components";
-import { Button } from "react-native-paper";
+import { Button, TextInput, ActivityIndicator } from "react-native-paper";
 
 import { colors } from "../../../infrastructure/theme/colors";
+import { Text } from "../../../components/typography/text.component";
 
 export const ImageContainer = styled.ImageBackground.attrs({
   source: require("../../../../assets/home_bg.jpg"),
@@ -28,5 +29,35 @@ export const AccountContainer = styled.View`
 export const AuthButton = styled(Button).attrs({
   color: colors.brand.primary,
 })`
+  padding: ${(props) => props.theme.space[2]};
+`;
+
+export const AuthInput = styled(TextInput).attrs({
+  mode: "outlined",
+  activeOutlineColor: colors.brand.primary,
+})`
+  width: 250px;
+`;
+
+export const Title = styled(Text)`
+  font-size: 30px;
+`;
+
+export const ErrorContainer = styled.View`
+  width: 250px;
+  align-self: center;
+  margin-vertical: ${(props) => props.theme.space[2]};
+`;
+
+export const AuthLoading = styled(ActivityIndicator).attrs({
+  animating: true,
+  color: colors.brand.primary,
+})``;
+
+export const AnimationWrapper = styled.View`
+  width: 100%;
+  height: 40%;
+  position: absolute;
+  top: 30px;
   padding: ${(props) => props.theme.space[2]};
 `;
