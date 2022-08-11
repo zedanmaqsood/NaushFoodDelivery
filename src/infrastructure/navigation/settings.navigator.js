@@ -10,11 +10,11 @@ import { FavouritesScreen } from "../../features/settings/screens/favourites.scr
 
 const SettingsStack = createStackNavigator();
 
-export const SettingsNavigator = ({ route, navigation }) => {
+export const SettingsNavigator = () => {
   return (
     <SettingsStack.Navigator
-      headerMode="screen"
       screenOptions={{
+        headerShown: true,
         cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
       }}
     >

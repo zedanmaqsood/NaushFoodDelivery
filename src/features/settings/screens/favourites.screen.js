@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { TouchableOpacity } from "react-native";
 
 import { Text } from "../../../components/typography/text.component";
+import { View } from "../../../components/utility/view.component";
 import { Spacer } from "../../../components/spacer/spacer.component";
 import { RestaurantsInfoCard } from "../../../features/restaurants/components/restaurants-info-card.component";
 import { RestaurantList } from "../../../features/restaurants/components/restaurant-list.styles";
@@ -19,7 +20,7 @@ export const FavouritesScreen = ({ navigation }) => {
   const { favourites } = useContext(FavouritesContext);
 
   return (
-    <>
+    <View>
       {!favourites.length ? (
         <NoFavArea>
           <Text variant="hint">There's nothing saved in favourites</Text>
@@ -41,6 +42,6 @@ export const FavouritesScreen = ({ navigation }) => {
           keyExtractor={(item) => item.name}
         />
       )}
-    </>
+    </View>
   );
 };
